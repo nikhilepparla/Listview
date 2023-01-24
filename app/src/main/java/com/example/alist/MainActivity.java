@@ -3,8 +3,14 @@ package com.example.alist;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -16,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RelativeLayout relativeLayout;
+        relativeLayout = findViewById(R.id.layout);
         //Accessing listview from xml
         ListView listView = findViewById(R.id.listview);
 
@@ -31,5 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
         //adding the listview to array adaptor
         listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String text = " position " + position + " View " + ((TextView) view).getText().toString();
+                Snackbar.make(relativeLayout, text, Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 }
